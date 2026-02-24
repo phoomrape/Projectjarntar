@@ -10,6 +10,7 @@ const studentRoutes = require('./routes/studentRoutes');
 const alumniRoutes = require('./routes/alumniRoutes');
 const advisorRoutes = require('./routes/advisorRoutes');
 const projectRoutes = require('./routes/projectRoutes');
+const importRoutes = require('./routes/importRoutes');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use('/api/students', studentRoutes);
 app.use('/api/alumni', alumniRoutes);
 app.use('/api/advisors', advisorRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/import', importRoutes);
 
 // 404 Handler
 app.use((req, res) => {
