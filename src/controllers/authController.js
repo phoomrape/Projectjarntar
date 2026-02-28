@@ -54,6 +54,17 @@ class AuthController {
     }
   }
 
+  // PUT /api/auth/profile
+  static async updateProfile(req, res, next) {
+    try {
+      const { email, phone, address } = req.body;
+      const profile = await AuthService.updateProfile(req.user.id, { email, phone, address });
+      res.json({ success: true, message: 'อัปเดตข้อมูลสำเร็จ', data: profile });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // PUT /api/auth/change-password
   static async changePassword(req, res, next) {
     try {

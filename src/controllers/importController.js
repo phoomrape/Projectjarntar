@@ -42,6 +42,7 @@ class ImportController {
         'อีเมล': 'email',
         'เบอร์โทร': 'phone',
         'สถานะ': 'status',
+        'ที่อยู่': 'address',
         'รหัสผ่าน': 'password',
         // English fallbacks
         'student_id': 'student_id',
@@ -53,6 +54,7 @@ class ImportController {
         'email': 'email',
         'phone': 'phone',
         'status': 'status',
+        'address': 'address',
         'password': 'password',
       };
 

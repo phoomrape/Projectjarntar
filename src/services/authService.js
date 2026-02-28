@@ -76,7 +76,7 @@ class AuthService {
 
     if (user.role === 'student') {
       const [rows] = await pool.query(
-        'SELECT student_id, first_name, last_name, faculty, department, year, email, phone FROM students WHERE user_id = ?',
+        'SELECT student_id, first_name, last_name, faculty, department, year, email, phone, address FROM students WHERE user_id = ?',
         [userId]
       );
       if (rows.length > 0) {
@@ -108,6 +108,33 @@ class AuthService {
     }
 
     return profile;
+  }
+
+  static async updateProfile(userId, { email, phone, address }) {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      const error = new Error('ไม่พบผู้ใช้');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (user.role === 'student') {
+      const updates = [];
+      const params = [];
+      if (email !== undefined) { updates.push('email = ?'); params.push(email); }
+      if (phone !== undefined) { updates.push('phone = ?'); params.push(phone); }
+      if (address !== undefined) { updates.push('address = ?'); params.push(address); }
+      if (updates.length > 0) {
+        params.push(userId);
+        await pool.query(`UPDATE students SET ${updates.join(', ')} WHERE user_id = ?`, params);
+      }
+    } else {
+      const error = new Error('เฉพาะนักศึกษาเท่านั้นที่สามารถแก้ไขโปรไฟล์ได้');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    return this.getProfile(userId);
   }
 
   static async changePassword(userId, { currentPassword, newPassword }) {

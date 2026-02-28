@@ -74,6 +74,7 @@ class StudentService {
         contact_info: student.email,
         email: student.email,
         phone: student.phone || '',
+        address: student.address || '',
         employment_status: 'seeking',
         photo_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${student.student_id}`,
         skills: [],

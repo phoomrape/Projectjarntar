@@ -31,6 +31,9 @@ router.post(
 // GET /api/auth/profile - ข้อมูลผู้ใช้ปัจจุบัน
 router.get('/profile', authenticateToken, AuthController.getProfile);
 
+// PUT /api/auth/profile - แก้ไขโปรไฟล์ (นักศึกษา: อีเมล, เบอร์โทร, ที่อยู่)
+router.put('/profile', authenticateToken, AuthController.updateProfile);
+
 // PUT /api/auth/change-password - เปลี่ยนรหัสผ่าน
 router.put(
   '/change-password',

@@ -53,17 +53,17 @@ class StudentModel {
     return rows[0] || null;
   }
 
-  static async create({ student_id, user_id, first_name, last_name, faculty, department, year, email, phone, status = 'Active' }) {
+  static async create({ student_id, user_id, first_name, last_name, faculty, department, year, email, phone, address, status = 'Active' }) {
     const [result] = await pool.query(
-      `INSERT INTO students (student_id, user_id, first_name, last_name, faculty, department, year, email, phone, status)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [student_id, user_id || null, first_name, last_name, faculty, department, year, email, phone || null, status]
+      `INSERT INTO students (student_id, user_id, first_name, last_name, faculty, department, year, email, phone, address, status)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [student_id, user_id || null, first_name, last_name, faculty, department, year, email, phone || null, address || null, status]
     );
     return { id: result.insertId, student_id };
   }
 
   static async update(id, fields) {
-    const allowedFields = ['first_name', 'last_name', 'faculty', 'department', 'year', 'email', 'phone', 'status'];
+    const allowedFields = ['first_name', 'last_name', 'faculty', 'department', 'year', 'email', 'phone', 'address', 'status'];
     const updates = [];
     const params = [];
 
